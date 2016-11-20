@@ -8,6 +8,14 @@
 
 using namespace std;
 
+struct PassCounter {
+
+  int letters;
+  int numbers;
+  int specials;
+
+};
+
 class PasswordGenerator {
 
  public:
@@ -17,7 +25,7 @@ class PasswordGenerator {
     char letter_gen();
     int numbers_gen();
     char special_gen();
-    void produce_pass(int pass_length, int pass_count);
+    void produce_pass(int pass_count, PassCounter);
 };
 
 #endif //PIASKOWNICA_PWGEN_H

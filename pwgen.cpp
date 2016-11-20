@@ -3,6 +3,7 @@
 //
 #include "pwgen.h"
 #include <iostream>
+#include <vector>
 
 char PasswordGenerator::letter_gen(){
 
@@ -31,11 +32,14 @@ char PasswordGenerator::special_gen(){
     return special;
 }
 
-void PasswordGenerator::produce_pass(int pass_length = 10, int pass_count = 10) {
+void PasswordGenerator::produce_pass(int pass_count, PassCounter Howmany) {
 
     string pass[pass_count];
     srand((unsigned int) time(NULL));
+    std::vector<char> char_arr;
+    std::vector<int> number_arr;
     for (int x = 0; x < pass_count; x++) {
+    /*
         pass[x] = "";
         string v;
         for (int y = 0; y < pass_length; y++){
@@ -48,7 +52,13 @@ void PasswordGenerator::produce_pass(int pass_length = 10, int pass_count = 10) 
             }
 
         }
+    */
+
+
+
     }
+
+
 
     for (int x = 0; x < pass_count; x++) {
        cout << pass[x] << "\n";

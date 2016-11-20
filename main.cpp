@@ -13,6 +13,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
+    PassCounter HowMany = { 5, 5, 5 };
     namespace po = boost::program_options;
     po::options_description desc("Available options");
     desc.add_options()
@@ -20,17 +21,19 @@ int main(int argc, char** argv) {
                     ("help,h", "produce help message")
                     ("version,v", "print version informations")
                     ("count,c", po::value<int>(), "produce given amount of passwords")
-                    ("length,l", po::value<int>(), "length of each password produced")
-                    ("letters,t", po::value<int>(), "amount of letters")
+                    /*("letters,t", po::value<int>(), "amount of letters")
                     ("numbers,n", po::value<int>(), "amount of numbers")
-                    ("specials,s", po::value<int>(), "amount of special characters")
-                    ("uppercase,u", po::value<int>(), "uppercase only")
-                    ("lowercase,o", po::value<int>(), "lowercase only");
+                    ("specials,s", po::value<int>(), "amount of special characters")*/
+                    ("numbers-off,no", po::value<bool>(), "no numbers")
+                    ("letters-off,lo", po::value<bool>(), "no letters")
+                    ("specials-off,so", po::value<bool>(), "no special characters")
+                    /*("uppercase,u", po::value<int>(), "uppercase only")
+                    ("lowercase,o", po::value<int>(), "lowercase only")*/;
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);
     int pass_count = 10;
-    int pass_length = 10;
+
 
     if (vm.count("help")) {
         cout << desc << "\n";
@@ -54,11 +57,19 @@ int main(int argc, char** argv) {
         pass_count = vm["count"].as<int>();
     }
 
-    if (vm.count("length")) {
-        pass_length = vm["length"].as<int>();
+    if (vm.count("numbers-off")) {
+        HowMany.numbers = 0;
+    }
+
+    if (vm.count("letters-off")) {
+        HowMany.letters = 0;
+    }
+
+    if (vm.count("specials-off")) {
+        HowMany.specials = 0;
     }
 
     PasswordGenerator Generator;
-    Generator.produce_pass(pass_length, pass_count);
+    Generator.produce_pass(pass_count, HowMany);
     return 0;
 }
