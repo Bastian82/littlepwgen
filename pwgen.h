@@ -5,11 +5,22 @@
 #ifndef PIASKOWNICA_PWGEN_H
 #define PIASKOWNICA_PWGEN_H
 #include <string>
+#include <vector>
 
 using namespace std;
 
+struct PassCounter {
+
+  int letters;
+  int numbers;
+  int specials;
+
+};
+
 class PasswordGenerator {
 
+ private:
+   void mixup(vector<char>, vector<int>);
  public:
     char letters[25] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z'};
     const int numbers[10] = {0,1,2,3,4,5,6,7,8,9};
@@ -17,7 +28,7 @@ class PasswordGenerator {
     char letter_gen();
     int numbers_gen();
     char special_gen();
-    void produce_pass(int pass_length, int pass_count);
+    void produce_pass(int pass_count, PassCounter);
 };
 
 #endif //PIASKOWNICA_PWGEN_H
