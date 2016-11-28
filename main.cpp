@@ -13,7 +13,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-    PassCounter HowMany = { 4, 3, 3 };
+    PassCounter HowMany = { 4, 3, 3, -1 };
     namespace po = boost::program_options;
     po::options_description desc("Available options");
     desc.add_options()
@@ -27,8 +27,7 @@ int main(int argc, char** argv) {
                     ("numbers,n", po::value<int>(), "how many numbers in password")
                     ("letters,l", po::value<int>(), "how many letters in password")
                     ("specials,s", po::value<int>(), "how many special characters in password")
-                    /*("uppercase,u", po::value<int>(), "uppercase only")
-                    ("lowercase,o", po::value<int>(), "lowercase only")*/;
+                    ("uppercase,u", po::value<int>(), "how many letters should be uppercase");
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);
@@ -66,7 +65,11 @@ int main(int argc, char** argv) {
     }
 
     if (vm.count("specials")) {
-        HowMany.specials = vm["specials"].as<int>();;
+        HowMany.specials = vm["specials"].as<int>();
+    }
+
+    if (vm.count("uppercase")) {
+        HowMany.uppercase = vm["uppercase"].as<int>();
     }
 
     PasswordGenerator Generator;
