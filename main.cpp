@@ -3,12 +3,12 @@
 #include <boost/program_options.hpp>
 #include <boost/exception/all.hpp>
 #include <exception>
+#include <math.h>
 
 #include "version.h"
 
 const string AUTHOR="Krzysztof Grzempa";
 const string LICENCE="GNU GPLv3";
-const string VERSION="0.0.1";
 const int YEAR=2016;
 
 using namespace std;
@@ -19,6 +19,8 @@ int main(int argc, char** argv) {
   PassCounter HowMany = { 4, 3, 3, -1 };
   namespace po = boost::program_options;
   po::options_description desc("Available options");
+  bool letters_defined = false;
+
 
   try {
     desc.add_options()
@@ -44,7 +46,11 @@ int main(int argc, char** argv) {
     if (vm.count("version")) {
       using AutoVersion::MINOR;
       using AutoVersion::MAJOR;
-      cout <<  MAJOR << "." << MINOR << endl;
+      using AutoVersion::BUILD;
+      using AutoVersion::REVISION;
+      using AutoVersion::STATUS;
+      using AutoVersion::STATUS_SHORT;
+      cout <<  MAJOR << "." << MINOR << "." << BUILD << STATUS_SHORT << " rev: " << REVISION << endl;
       return 0;
     }
 
@@ -54,31 +60,32 @@ int main(int argc, char** argv) {
       return 0;
     }
 
-
-
     if (vm.count("count")) {
-      pass_count = vm["count"].as<int>();
+      pass_count = abs(vm["count"].as<int>());
     }
 
     if (vm.count("numbers")) {
-      HowMany.numbers = vm["numbers"].as<int>();
+      HowMany.numbers = abs(vm["numbers"].as<int>());
     }
 
     if (vm.count("letters")) {
-      HowMany.letters = vm["letters"].as<int>();
+      letters_defined = true;
+      HowMany.letters = abs(vm["letters"].as<int>());
     }
 
     if (vm.count("specials")) {
-      HowMany.specials = vm["specials"].as<int>();
+      HowMany.specials = abs(vm["specials"].as<int>());
     }
 
     if (vm.count("uppercase")) {
-      HowMany.uppercase = vm["uppercase"].as<int>();
+      HowMany.uppercase = abs(vm["uppercase"].as<int>());
     }
 
-    if (HowMany.uppercase > HowMany.letters) {
+    if (HowMany.uppercase > HowMany.letters && letters_defined == true) {
       cout << "Uppercase letters amount cannot exceed overall letters number";
       return 0;
+    } else if (HowMany.uppercase > HowMany.letters && letters_defined == false) {
+      HowMany.letters = HowMany.uppercase;
     }
 
     PasswordGenerator Generator;

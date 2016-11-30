@@ -6,7 +6,7 @@
 #include <vector>
 #include <algorithm>
 
-char PasswordGenerator::letter_gen(unsigned int & upper){
+char PasswordGenerator::letter_gen(int & upper){
 
   char letter;
   int v = rand() % 23;
@@ -69,7 +69,7 @@ void PasswordGenerator::produce_pass(int pass_count, PassCounter Howmany) {
   std::vector<char> char_arr;
   std::vector<int> number_arr;
   for (int x = 0; x < pass_count; x++) {
-    unsigned int upper_per_iter = Howmany.uppercase;
+    int upper_per_iter = Howmany.uppercase;
     for (unsigned int x =0; x < Howmany.letters; x++) {
       char_arr.push_back(letter_gen(upper_per_iter));
     }
@@ -84,6 +84,5 @@ void PasswordGenerator::produce_pass(int pass_count, PassCounter Howmany) {
     char_arr.clear();
     number_arr.clear();
   }
-
 }
 
