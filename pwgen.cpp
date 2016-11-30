@@ -84,6 +84,5 @@ void PasswordGenerator::produce_pass(int pass_count, PassCounter Howmany) {
     char_arr.clear();
     number_arr.clear();
   }
-
 }
 
