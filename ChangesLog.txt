@@ -1,0 +1,8 @@
+01 grudzień 2016
+   released version 1.0.3 of littlepwgen
+
+     Change log:
+        -Added: Fixed options cornercases like unsigned values handling, conflicting options
+        -Fixed autoversioning
+        -Added changelog
+
