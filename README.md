@@ -1,5 +1,11 @@
 #littlepwgen
-Very simple password generator 
+*Very simple password generator*
+
+
+###What do you need before compiling
+```bash
+sudo apt-get install g++ libboost-program-options libboost-program-options-dev
+```
 
 ###Installation
 ```bash
